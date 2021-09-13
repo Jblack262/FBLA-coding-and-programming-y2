@@ -1,0 +1,82 @@
+body,
+html {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.App {
+  text-align: center;
+}
+.App .container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.Search {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  margin-inline: auto;
+  position: relative;
+  z-index: 10;
+}
+.Search .input {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid black;
+  width: 100%;
+  margin: 1rem;
+  margin-bottom: 0;
+  box-sizing: border-box;
+}
+.Search .input input {
+  width: 520px;
+  max-width: 90vw;
+  font-size: 2rem;
+  border: none;
+  outline: none;
+}
+.Search .input button {
+  display: grid;
+  place-items: center;
+  height: 50px;
+  width: 50px;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.Search .suggestionsContainer {
+  width: 100%;
+  margin: 1rem;
+  margin-top: 0;
+  font-size: 1.25rem;
+  position: absolute;
+  top: 100%;
+  background-color: white;
+}
+.Search .suggestionsContainer .suggestion-item {
+  padding: 1rem;
+  cursor: pointer;
+}
+.Search .suggestionsContainer .suggestion-item:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.mapContainer {
+  width: 800px;
+  height: 400px;
+}
+.mapContainer .btn {
+  width: 100%;
+  font-size: 2rem;
+  margin: 1rem;
+  padding: 0.5rem;
+  background: none;
+  cursor: pointer;
+}/*# sourceMappingURL=index.css.map */
