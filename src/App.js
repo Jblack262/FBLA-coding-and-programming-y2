@@ -1,26 +1,37 @@
+import React from 'react';
 import LocationSearchInput from './components/PlacesInput'
 import Header from './components/Header';
 // import Map from './components/Map'
 // import SavedLocations from './components/SavedLocations'
-import React, { useState } from 'react';
-import Search from './components/Search'
-import Map from './components/Map'
-
-const defaultCenter = {
-	lat: 43.653225,
-	lng: -79.383186,
-}
 
 function App() {
-	const [center, setCenter] = useState(defaultCenter)
-	const [selectedLocation, setSelectedLocation] = useState(null);
+	// const [location, setLocation] = React.useState({lat: 33.6362399, lng: -112.1344286})
+	// const [address, setAddress] = React.useState('')
+	const [title, setTitle] = React.useState('')
+	// const [savedLocations, setSavedLocations] = React.useState([]);
+	// const [zoom, setZoom] = React.useState(2);
 
-	const getNewSelectedLocation = (location) => {
-		console.log(location)
-		const { geometry } = location;
-		console.log(geometry.location.lat)
-		setSelectedLocation(location);
-		// setCenter({ lng, lat })
+	// const onSelectLocation = (location, address) => {
+	// 	setAddress(address);
+	// 	setLocation(location);
+
+	// 	const addressLength = address.split(",").length;
+	// 	(addressLength >= 1 && addressLength <= 3) ? setZoom(addressLength + 3) : setZoom(15)//sets zoom based on number of elements in address
+	// }
+
+	// const keepLocation = () => {
+	// 	console.log(location);
+	// 	if (address !== '' && !([...savedLocations].includes(address))) setSavedLocations([...savedLocations, address]); //filters out empty searches and duplicate searches
+	// }
+
+	// const clearLocation = () => {
+	// 	setAddress('');
+	// 	setZoom(2);
+	// }
+
+	const newTitle = (title) => {
+		console.log(title)
+		setTitle(title);
 	}
 
   return (
@@ -46,12 +57,6 @@ function App() {
 		<button>Search</button>
     </div>
   );
-	// return (
-	// 	<div className="App">
-	// 		<Search getNewSelectedLocation={getNewSelectedLocation} />
-	// 		<Map center={center} />
-	// 	</div>
-	// );
 }
 
 export default App;
