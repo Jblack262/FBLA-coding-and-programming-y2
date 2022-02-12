@@ -63,7 +63,28 @@ const countries = {
   },
 };
 const searchBtnDOM = document.querySelector('.search');
-const filterTypes = ["tourist_attraction", "amusement_park", "aquarium", "airport", "art_gallery", "cafe", "campground", "zoo", "taxi_stand", "subway_station", "stadium", "shopping_mall", "restaurant", "museum", "movie_theater", "lodging"];
+const filterTypes = [
+  "lodging",
+  "campground",
+
+  "tourist_attraction",
+  "amusement_park",
+  "aquarium",
+  "zoo",
+  "art_gallery",
+  "restaurant",
+  "cafe",
+  "stadium",
+  "museum",
+  "shopping_mall",
+  "movie_theater",
+  "spa",
+
+  "airport",
+  "subway_station",
+  "parking",
+  "taxi_stand",
+];
 
 
 function initMap() {
@@ -161,16 +182,26 @@ const addResults = (results) => {
   const resultsContainerDOM = document.querySelector('.results');
   const resultsHTML = results.map((result) => {
     const {name, icon, place_id, rating} = result;
+    const pos = JSON.stringify(result.geometry.location);
+    const {lat, lng} = JSON.parse(pos)
+    
+    const markerLetter = String.fromCharCode("A".charCodeAt(0) + (results.indexOf(result) % 26));
     return `
-      <div class="place">
+      <div class="place" onClick="setCenter('${lat}', '${lng}')">
+        <h2>${markerLetter}:</h2>
         <img src="${icon}" alt="${name}">
-        <h3>${name}</h3>
+        <h3><a href="https://www.google.com/maps/place/?q=place_id:${place_id}" target="_blank">${name}</a></h3>
         ${rating ? `<p>Rating: ${rating}</p>` : ''}
-        <button onclick="savePlace('${name}', '${place_id}')">Save</button>
+        <button onclick="savePlace('${name}', '${place_id}')" ${!rating ? 'style="margin-left: auto"' : ''}>Save</button>
       </div>
     `
   }).join('');
   resultsContainerDOM.innerHTML = resultsHTML;
+}
+
+const setCenter = (lat, lng) => {
+  map.setCenter(new google.maps.LatLng(lat, lng));
+  map.setZoom(19)
 }
 
 const savePlace = (placeName, place_id) => {
@@ -180,6 +211,11 @@ const savePlace = (placeName, place_id) => {
   }
   
   savedPlaces.push(place);
+  //Removes all duplicate places from savedPlaces array
+  savedPlaces = Array.from(new Set(savedPlaces.map(a => a.place_id)))
+  .map(id => {
+    return savedPlaces.find(a => a.place_id === id)
+  })
   showSavedPlaces();
 }
 
@@ -219,8 +255,10 @@ const addFilters = () => {
   const filterContainerDOM = document.getElementById('filters');
   const filtersHTML = filterTypes.map(filter => {
     return `
-    <label for="${filter}">${filter.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</label>
-    <input type="checkbox" name="${filter}" id="${filter}">
+    <div class='filter'>
+      <label for="${filter}">${filter.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</label>
+      <input type="checkbox" name="${filter}" id="${filter}">
+    </div>
     `
   }).join('')
   filterContainerDOM.innerHTML = filtersHTML;
@@ -235,8 +273,8 @@ const showSavedPlaces = () => {
     return `
       <div class="savedPlace">
         <p>${name}</p>
-        <button><a href='https://www.google.com/maps/place/?q=place_id:${place_id}'>View on google maps</a></button>
-        <button onClick="deletePlace('${place_id}')">X</button>
+        <a href='https://www.google.com/maps/place/?q=place_id:${place_id}' target="_blank"><button>More Info</button></a>
+        <button class="close-btn" onClick="deletePlace('${place_id}')"><i class="fa fa-close"></i></button>
       </div>
     `
   }).join('')
@@ -253,6 +291,7 @@ function clearMarkers() {
 
   markers = [];
 }
+
 function clearResults() {
   const results = document.querySelector(".results");
 

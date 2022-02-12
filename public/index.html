@@ -2,41 +2,48 @@
 <html>
   <head>
     <title>Vacation Search</title>
+    <script src="https://kit.fontawesome.com/e61ab9568e.js" crossorigin="anonymous"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <link rel="stylesheet" type="text/css" href="./style.css" />
     <script src="./index.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
   </head>
   <body>
-    <div class="hotel-search">
-      <div id="findhotels">Vacation Places in:</div>
+    <h1 class="title">Vacation Search</h1>
+    <div class="vacation-search">
 
-      <div id="locationField">
-        <input id="autocomplete" placeholder="Enter a city" type="text" />
-      </div>
 
       <div id="controls">
-        <select id="country">
-          <option value="all">All</option>
-          <option value="au">Australia</option>
-          <option value="br">Brazil</option>
-          <option value="ca">Canada</option>
-          <option value="fr">France</option>
-          <option value="de">Germany</option>
-          <option value="mx">Mexico</option>
-          <option value="nz">New Zealand</option>
-          <option value="it">Italy</option>
-          <option value="za">South Africa</option>
-          <option value="es">Spain</option>
-          <option value="pt">Portugal</option>
-          <option value="us" selected>U.S.A.</option>
-          <option value="uk">United Kingdom</option>
-        </select>
+        <div class="location_inputs">
+          <select id="country">
+            <option value="all">All</option>
+            <option value="au">Australia</option>
+            <option value="br">Brazil</option>
+            <option value="ca">Canada</option>
+            <option value="fr">France</option>
+            <option value="de">Germany</option>
+            <option value="mx">Mexico</option>
+            <option value="nz">New Zealand</option>
+            <option value="it">Italy</option>
+            <option value="za">South Africa</option>
+            <option value="es">Spain</option>
+            <option value="pt">Portugal</option>
+            <option value="us" selected>U.S.A.</option>
+            <option value="uk">United Kingdom</option>
+          </select>
+          <div id="locationField">
+            <input id="autocomplete" placeholder="Enter a city" type="text" />
+          </div>
+        </div>
+        
 
         <div id="filters">
         </div>
 
+        <button onclick="search()">Search</button>
       </div>
-      <button onclick="search()">Search</button>
+
     </div>
 
 
@@ -51,9 +58,15 @@
       </div>
     </div>
 
-
-    <div class="results">
+    <div class="results-container">
+      <button onclick="clearResults(); clearMarkers()">Clear Results</button>
+      
+      <div class="results"></div>
     </div>
+
+    <footer>
+      <p>Copyright &copy; JD Blackman, Justin Melore</p>
+    </footer>
 
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
     <script
