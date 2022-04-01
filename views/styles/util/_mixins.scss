@@ -1,0 +1,729 @@
+@mixin banner($img, $width, $color, $accent, $fontColor) {
+  background: $color;
+  color: $fontColor;
+
+  background-image: url($img);
+  background-position: center;
+
+  min-width: $width;
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: space-between;
+
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    background-color: $color;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.8;
+  }
+  .text {
+    h3 {
+      color: $accent;
+    }
+    margin: 2rem;
+    z-index: 1;
+  }
+  .button {
+    background-color: $accent;
+    color: $fontColor;
+    margin: auto 2rem;
+    border: none;
+    height: 3rem;
+    padding: 0.5rem 2rem;
+    cursor: pointer;
+    z-index: 1;
+    &:active {
+      transform: translate(1px, 1px);
+    }
+  }
+  @media screen and (max-width: 420px) {
+    flex-direction: column;
+    .button {
+      margin: 0 2rem 2rem 2rem;
+    }
+  }
+}
+
+@mixin navBar($color, $accent, $fontLight, $fontDark) {
+  background-color: $color;
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    li {
+      float: left;
+      &.active {
+        background-color: $accent;
+        a {
+          color: $fontDark;
+        }
+      }
+      a {
+        display: block;
+        color: $fontLight;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        position: relative;
+        &:hover::after {
+          transform: scaleY(1);
+          transform-origin: bottom;
+        }
+        &::after {
+          content: "";
+          position: absolute;
+          background-color: rgba(0, 0, 0, 0.2);
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          transform-origin: top;
+          transform: scaleY(0);
+          transition: transform 300ms ease-in-out;
+        }
+      }
+    }
+    .right {
+      float: right;
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    ul {
+      overflow: visible;
+      li {
+        float: none;
+        &.right {
+          float: none;
+        }
+      }
+    }
+  }
+}
+
+@mixin card($color, $accent, $fontColor) {
+  display: inline-block;
+  position: relative;
+  background-color: $color;
+
+  // width: 100vw;
+
+  margin: 1rem 0.5rem;
+
+  &:first-of-type {
+    margin-left: 1rem;
+  }
+  &:last-of-type {
+    margin-right: 1rem;
+  }
+
+  img {
+    width: 100%;
+    filter: saturate(10%);
+  }
+
+  .content {
+    position: absolute;
+    bottom: 0.25rem;
+    width: 100%;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    h3 {
+      color: $accent;
+      margin: 0.25rem 2rem;
+    }
+    p {
+      font-size: 115%;
+      margin: 0.25rem 2rem 0.75rem 2rem;
+    }
+    ul {
+      list-style: none;
+      display: flex;
+      padding: 0;
+      margin: 0 2rem 1rem 2rem;
+      li:first-of-type a::before {
+        content: "";
+      }
+      li:last-of-type a::after {
+        content: "";
+      }
+      li a::after {
+        content: " | ";
+        color: $fontColor;
+      }
+      li a::before {
+        content: " | ";
+        color: $fontColor;
+      }
+      li a {
+        color: white;
+        text-decoration: none;
+
+        &:hover {
+          color: $accent;
+        }
+      }
+    }
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0.25rem;
+    transform: scaleY(0);
+    background-color: $accent;
+
+    transform-origin: top;
+    transition: transform 200ms ease-in-out;
+  }
+  &:hover::after {
+    transform: scaleY(1);
+  }
+  @media screen and (max-width: 768px) {
+    margin: 1rem 3rem !important;
+    padding: 0;
+    img {
+      width: 100%;
+    }
+    .content {
+      margin: 0;
+      padding: 0;
+      * {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+}
+
+@mixin post($color, $accent, $bg, $fontColor) {
+  display: inline-block;
+  width: 50vw;
+  margin: 2rem auto;
+  padding: 1rem 2rem;
+  border: 1px solid $color;
+  background-color: $bg;
+  .title {
+    font-weight: bold;
+    * {
+      margin: 0;
+    }
+    margin-bottom: 1rem;
+    .accent {
+      color: $accent;
+    }
+    color: $color;
+  }
+  ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    li:first-of-type::before {
+      content: "";
+    }
+    li:last-of-type::after {
+      content: "";
+    }
+    li::after {
+      content: " | ";
+      color: $fontColor;
+    }
+    li::before {
+      content: " | ";
+      color: $fontColor;
+    }
+  }
+  .content {
+    padding: 1rem 3rem;
+    border-block: 1px solid $color;
+    line-height: 1.75;
+  }
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+    * {
+      margin: 0;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    .content {
+      padding: 1rem;
+    }
+  }
+  @media screen and (max-width: 400px) {
+    .content {
+      padding: 1rem 0;
+    }
+  }
+}
+
+@mixin footer($color, $accent, $fontLight, $fontDark) {
+  color: $fontDark;
+  background-color: $color;
+  margin-top: auto;
+  .row {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    &.top {
+      flex-direction: row;
+      justify-content: space-around;
+      color: $fontLight;
+      padding-top: 1rem;
+      .col {
+        display: flex;
+        max-width: 30vw;
+        width: 100%;
+        text-align: left;
+        justify-content: space-between;
+        ul {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          li {
+            padding: 0.1rem;
+            &.title {
+              color: $accent;
+              font-size: 110%;
+              font-weight: bold;
+              padding: 0.5rem;
+            }
+            a {
+              color: $fontLight;
+              text-decoration: none;
+              &:active {
+                color: $accent;
+              }
+            }
+          }
+        }
+        &.desc {
+          flex-direction: column;
+          h3 {
+            margin: 0;
+            padding: 0.5rem;
+            color: $accent;
+          }
+          p {
+            margin: 0;
+          }
+        }
+      }
+    }
+    .socials {
+      ul {
+        padding: 0;
+        display: flex;
+        list-style: none;
+        font-size: 200%;
+        margin: 0;
+        justify-content: center;
+        li {
+          padding-inline: 1rem;
+          a {
+            color: $fontDark;
+            &:active {
+              color: $accent;
+            }
+          }
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 500px) {
+    footer .row.top {
+      display: block;
+      margin-block: 0.25rem;
+      .col {
+        max-width: 100vw;
+        margin: 0;
+        justify-content: space-around;
+        &.desc h3,
+        &.desc p {
+          padding-inline: 2rem;
+        }
+      }
+    }
+  }
+}
+
+@mixin hover($color) {
+  box-shadow: 2.5px 5px 10px $color;
+
+  transform-origin: center;
+  transition: transform 100ms ease-in-out;
+  &:hover {
+    transform: scale(1.01);
+    box-shadow: 5px 10px 10px $color;
+  }
+}
+
+@mixin slideshow {
+  position: relative;
+  display: inline-block;
+  width: 70vw;
+  margin: 0 auto;
+  .slideNav {
+    text-align: center;
+    padding: 1.5rem 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .slides {
+    background-color: white;
+    padding: 0;
+    z-index: 0;
+    width: 70vw;
+    overflow-x: hidden;
+    display: flex;
+
+    scroll-behavior: smooth;
+    position: relative;
+    div,
+    img {
+      min-width: 100%;
+      max-height: 100%;
+      position: relative;
+      .nextButton {
+        display: inline-block;
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.2);
+        color: $font-dark;
+        width: 100px;
+        height: 100px;
+        top: calc(50% - 50px);
+
+        display: grid;
+        place-items: center;
+        font-size: 400%;
+        text-decoration: none;
+        &.left {
+          left: 0;
+        }
+        &.right {
+          right: 0;
+        }
+      }
+    }
+  }
+}
+
+@mixin linkButton {
+  text-decoration: none;
+  color: $font-dark;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  border-radius: 50%;
+  border: 2px solid $font-white;
+  color: $font-white;
+  margin: 0 0.75rem;
+  font-weight: bold;
+  &:active {
+    background-color: $clr-accent;
+    color: $font-white;
+  }
+}
+
+@mixin radioBoxes {
+  position: absolute;
+  display: flex;
+  input {
+    position: relative;
+    margin: 0 0.25rem;
+    display: grid;
+    place-items: center;
+    visibility: hidden;
+    &::after {
+      visibility: visible;
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 1px solid black;
+      border-radius: 50%;
+    }
+    &::before {
+      visibility: visible;
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #555;
+      border-radius: 50%;
+
+      transition: transform 300ms ease;
+      transform-origin: center;
+      transform: scale(0);
+    }
+    &:checked::before {
+      transform: scale(1);
+    }
+  }
+}
+
+@mixin center-auto {
+  margin: {
+    left: auto;
+    right: auto;
+  }
+}
+
+@mixin absolute-center {
+  margin-inline: 0;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+//flexbox toolkit
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-center-column {
+  @include flex-center();
+  flex-direction: column;
+}
+@mixin cover-background {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+//this is when we use ::after and ::before
+@mixin pseudo(
+  $width: 100%,
+  $height: 100%,
+  $display: block,
+  $pos: absolute,
+  $content: ""
+) {
+  content: $content;
+  display: $display;
+  position: $pos;
+  @include box($width, $height);
+}
+@mixin box($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+@mixin warning($color: red, $font-color: white) {
+  background-color: $color;
+  text-align: center;
+  color: $font-color;
+  * {
+    margin: 0;
+  }
+}
+
+@mixin position($position, $args) {
+  @each $pos in top right bottom left {
+    $i: index($args, $pos);
+    @if $i and $i + 1 <= length($args) and type-of(nth($args, $i + 1)) {
+      #{pos}: nth($args, $i + 1);
+    }
+  }
+  position: $position;
+}
+
+@mixin absolute($args: " ") {
+  @include position(absolute, $args);
+}
+@mixin fixed($args: " ") {
+  @include position(fixed, $args);
+}
+@mixin relative($args: " ") {
+  @include position(relative, $args);
+}
+
+// .meni li {
+//   @include absolute(top 100% left 0);
+// }
+// .sticky-bar {
+//   @include fixed(top 0 left 0)
+// }
+// .submenu {
+//   @include relative(())
+// }
+
+$phone-wide: 480px;
+$phablet: 560px;
+$tablet-small: 640px;
+$tablet: 768px;
+$large: 1024px;
+$desktop: 1280px;
+$desktop-wide: 1440px;
+
+@mixin phone {
+  @media only screen and (min-width: $phone-wide) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media only screen and (min-width: $tablet) {
+    @content;
+  }
+}
+@mixin large {
+  @media only screen and (min-width: $large) {
+    @content;
+  }
+}
+@mixin desktop {
+  @media only screen and (min-width: $desktop) {
+    @content;
+  }
+}
+
+@mixin fade($type) {
+  @if $type == "hide" {
+    visibility: hidden;
+    opacity: 0;
+    transition: $transition;
+    // transition: visibility 1s opacity 1s;
+  } @else if $type == "show" {
+    visibility: visible;
+    opacity: 1;
+    transition: $transition;
+  }
+}
+
+@mixin input-placeholder {
+  &.placeholder {
+    @content;
+  }
+  &:-moz-placeholder {
+    @content;
+  }
+  &::-moz-placeholder {
+    @content;
+  }
+  &:-ms-input-placeholder {
+    @content;
+  }
+  &::-webkit-input-placeholder {
+    @content;
+  }
+}
+
+@mixin font-face($font-name, $file-name, $weight: normal, $style: normal) {
+  @font-face {
+    font-family: quote($font-name);
+    src: url($file-name + ".eot");
+    src: url($file-name + ".eot?#iefix") format("embedded-opentype"),
+      url($file-name + "woff") format("woff"),
+      url($file-name + "ttf") format("truetype"),
+      url($file-name + ".svg") format("svg");
+    font-weight: $weight;
+    font-style: $style;
+  }
+}
+
+@mixin stickyNavBar($color, $accent, $fontLight, $fontDark) {
+  background-color: white;
+}
+
+@mixin animateDelay($delay: 100ms) {
+  @for $i from 1 through 50 {
+    &:nth-child(#{$i}) {
+      transition-delay: $delay * $i;
+    }
+  }
+} //adds delay to children n stuff (;
+
+// @include font-face("MyFont", './base/typography/myfont.ttf', $style: underline)
+// div{
+//   font-family: "MyFont";
+// }
+
+@mixin text-shorten {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+//creating css triangles
+@mixin css-triangle(
+  $color,
+  $direction,
+  $size: 6px,
+  $position: absolute,
+  $round: false
+) {
+  @include pseudo($pos: $position);
+  width: 0;
+  height: 0;
+  @if $round {
+    border-radius: 3px;
+  }
+  @if $direction == down {
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-top: $size solid $color;
+    margin-top: 0 - round($size / 2.5);
+  } @else if $direction == up {
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-bottom: $size solid $color;
+    margin-bottom: 0 - round($size / 2.5);
+  } @else if $direction == right {
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-left: $size solid $color;
+    margin-right: -$size;
+  } @else if $direction == left {
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-right: $size solid $color;
+    margin-left: -$size;
+  }
+}
+
+@mixin gradientBorder($angle, $color1, $color2, $width) {
+  // margin: $width !important;
+  position: relative;
+  isolation: isolate;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: $width;
+    background: inherit;
+    border-radius: inherit;
+    z-index: -2;
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient($angle, $color1 0%, $color2 100%);
+    border-radius: inherit;
+    z-index: -2;
+  }
+}

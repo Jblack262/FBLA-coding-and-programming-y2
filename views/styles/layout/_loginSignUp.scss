@@ -1,0 +1,80 @@
+#loginForm,
+#signUpForm {
+	background-color: $clr-primary-0;
+	color: $font-color-light;
+	h1 {
+		text-align: center;
+	}
+	.inputs {
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+		border-radius: 0.25rem;
+		input {
+			border: none;
+			outline: none;
+			border-bottom: 1px solid #00000022;
+			padding: 0.75rem 1rem;
+			&:last-of-type {
+				border: none;
+			}
+		}
+	}
+	.login,
+	.signIn {
+		color: currentColor;
+		background-color: $clr-accent-0;
+		border: none;
+		width: 100%;
+		padding: 0.75rem;
+		margin: 1rem 0;
+		border-radius: 0.25rem;
+		cursor: pointer;
+		&:hover,
+		&:focus-within {
+			background-color: $clr-accent-2;
+		}
+	}
+	.form-error {
+		color: $font-color-light;
+		text-align: center;
+		margin: 0;
+		display: none;
+		visibility: hidden;
+	}
+}
+
+#loginForm,
+#signUpForm {
+	width: clamp(30vw, 25rem, 90vw);
+	font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+	padding: 5rem 3rem;
+	box-sizing: border-box;
+
+	border-radius: 0.75rem;
+	box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+
+	@media screen and (max-width: 380px) {
+		padding-inline: 1rem;
+	}
+	.loginOption {
+		background-color: transparent;
+		color: currentColor;
+		width: 100%;
+		border: none;
+		padding: 0;
+		margin: 0;
+		cursor: pointer;
+		&:hover,
+		&.focus-within {
+			text-decoration: underline;
+		}
+		a {
+			color: currentColor;
+			text-decoration: none;
+			&:active {
+				filter: brightness(0.6);
+			}
+		}
+	}
+}
