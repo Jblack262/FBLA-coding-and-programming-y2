@@ -1,0 +1,59 @@
+.modal-container {
+  position: fixed;
+  inset: 0;
+  background-color: $clr-dark-transparent-2;
+
+  visibility: hidden;
+  display: none;
+  .modal {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 450px;
+    max-width: 95%;
+    transform: translate(-50%, -50%);
+    background-color: $backgroundColor;
+    // border-radius: .25rem;
+    overflow: hidden;
+    // padding: 1.5rem;
+    .modal-content {
+      .modal-title {
+        background-color: $clr-light-1;
+        margin: 0;
+        padding: 1rem;
+        border-top: .33rem solid $clr-accent-0;
+        border-bottom: .33rem solid $clr-light-2;
+      }
+      p {
+        font-size: 1.25rem;
+        margin: 1rem;
+        margin-bottom: 2rem;
+      }
+      .modal-buttons {
+        margin-left: auto;
+        width: max-content;
+        padding: 1.5rem;
+        button {
+          border: 2px solid $clr-accent-0;
+          color: $font-color-dark;
+          border-radius: .25rem;
+          padding: 0;
+          font-weight: bold;
+          padding: .5rem 1rem;
+          a {
+            display: block;
+            box-sizing: border-box;
+            height: 100%;
+            width: 100%;
+            text-decoration: none;
+            color: currentColor;
+          }
+          &.primary-btn {
+            background-color: $clr-accent-0;
+            color: $font-color-light;
+          }
+        }
+      }
+    }
+  }
+}

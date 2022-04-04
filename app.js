@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 
 //middleware
+var path = require ('path');
 app.use(express.json())
 require('dotenv').config()
 const session = require('express-session');
@@ -22,7 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
-app.use(express.static(__dirname + "/views"));
+app.use(express.static(path.join(__dirname + '/views')));
 
 
 //navigation routing

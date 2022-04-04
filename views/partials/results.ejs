@@ -1,5 +1,8 @@
 <div class="results-container">
-  <button onclick="clearResults(); clearMarkers()">Clear Results</button>
+  <div class="clear-buttons">
+    <button onClick="map.panTo(currentCity);map.setZoom(12);">Reset View</button>
+    <button onclick="clearResults(); clearMarkers()">Clear Results</button>
+  </div>
   
   <div class="results"></div>
 </div>

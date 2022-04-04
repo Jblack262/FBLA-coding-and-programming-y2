@@ -1,14 +1,19 @@
-const openButtonDOM = document.querySelector('.openButton');
-const closeButtonDOM = document.querySelector('.closeButton');
+const logoutBtn = document.querySelector('.logout');
+const loginBtn = document.querySelector('.login');
+const checkUser = async () => {
+  const user = await getCurrentUser();
+  if (user) { //if a user is logged in
+    logoutBtn.style.visibility = 'visible';
+    logoutBtn.style.display = 'grid';
 
-const navContainerDOM = document.querySelector('.navContainer');
+    loginBtn.style.visibility = 'hidden';
+    loginBtn.style.display = 'none';
+  } else { //if no user is logged in
+    loginBtn.style.visibility = 'visible';
+    loginBtn.style.display = 'grid';
 
-openButtonDOM.addEventListener('click', () => {
-  navContainerDOM.classList.toggle('open');
-  navContainerDOM.classList.toggle('closed');
-})
-
-closeButtonDOM.addEventListener('click', () => {
-  navContainerDOM.classList.toggle('open');
-  navContainerDOM.classList.toggle('closed');
-})
+    logoutBtn.style.visibility = 'hidden';
+    logoutBtn.style.display = 'none';
+  }
+}
+checkUser()

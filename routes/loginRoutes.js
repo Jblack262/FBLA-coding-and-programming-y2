@@ -45,6 +45,7 @@ app.post('/', async (req, res) => { //create user
                                 .then((value) => {
                                     console.log(value)
                                     // req.flash('success_msg', 'You have now registered')
+                                    res.redirect('/login');
                                     res.sendStatus(200)
                                 })
                                 .catch(value => console.log(value))
@@ -86,6 +87,14 @@ app.get('/', async (req, res) => {
       const allUsers = await UserSchema.find({});
       res.status(201).json({ allUsers });
   } catch (error) { res.status(500).json({ msg: error }) }
+})
+app.patch('/:id', async (req, res) => {
+    try {
+        const {id} = req.params;
+        const newUser = req.body;
+        await UserSchema.findOneAndUpdate({ _id: id }, newUser);
+        res.status(201).json({status: 'success', msg: 'user updated'});
+    } catch (error) { res.status(500).json({status: 'failed', msg: error}) }
 })
 app.delete('/', async (req, res) => {
   try {

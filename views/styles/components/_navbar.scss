@@ -1,172 +1,41 @@
 nav {
-	.icon {
-		font-size: 2.75rem;
+	display: flex;
+	justify-content: center;
+	background-color: #2980b9;
+	color: #ecf0f1;
+	margin: 0;
+	@media screen and (max-width: 512px) {
+		justify-content: flex-start;
 	}
-	.openButton {
-		font-size: 300%;
-		display: grid;
-		place-items: center;
-		position: fixed;
-
-		z-index: 2;
-
-		top: 1rem;
-		left: 1rem;
-		.icon {
-			margin-block: auto;
-			color: $font-color-light;
-			cursor: pointer;
-			font-weight: bold;
-
-			text-shadow: 0 0 2rem black, 0 0 0.5rem black;
-		}
-		input {
-			position: absolute;
-			margin: 0;
-			inset: 0;
-			width: 100%;
-			height: 100%;
-
-			visibility: hidden;
-		}
+	.title {
+		text-align: center;
+		margin: 0;
+		padding: 1rem;
+		font-size: 2.4rem;
+		max-width: 65vw;
 	}
-	.navContainer {
-		background-color: $clr-primary-1;
-		position: fixed;
-		height: 100%;
-		max-width: 16.25rem;
+	position: relative;
+	.logout button {
+		padding-inline: 2rem;
+	}
+	button {
+		position: absolute;
+		padding: 0;
+		margin: 0;
+		right: 0;
 		top: 0;
-		left: 0;
-		z-index: 3;
-
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-
-		box-shadow: 0 0 15px $clr-primary-0;
-
-		transition: transform 300ms ease-in-out;
-		&.open {
-			transform: translateX(0%);
-			.closeButton {
-				transform: translateX(calc(50% + 2rem)) rotateZ(180deg);
-			}
-
-			.links ul li {
-				transform: translateX(0%);
-
-				@for $i from 1 through 50 {
-					&:nth-child(#{$i}) {
-						transition-delay: 100ms * $i;
-					}
-				}
-			}
-			.footer {
-				transform: translateY(0);
-			}
-		}
-		&.closed {
-			transform: translateX(
-				calc(-100% - 15px)
-			); //moves entirely off-screen plus 15px to hide box shadow
-		}
-		.closeButton {
-			position: absolute;
-			background-color: $clr-accent-0;
+		height: 100%;
+		border: none;
+		background-color: $clr-light-1;
+		a {
+			color: $font-color-dark;
+			text-decoration: none;
 			display: grid;
 			place-items: center;
-			border-radius: 50%;
-			padding: 0.5rem;
-			top: calc(50% - 33px);
-			// left: calc(100% - 33px);
-			right: 2rem;
-			font-size: 300%;
-			cursor: pointer;
-
-			transition: transform 350ms ease-in-out;
-			.icon {
-				color: $font-color-light;
-			}
-		}
-		.image-container {
 			width: 100%;
-			.logo {
-				max-width: 90%;
-				display: block;
-				margin: 0.5rem auto;
-
-				filter: drop-shadow(0 0 16px $clr-light-transparent);
-			}
-		}
-
-		.links {
-			font-size: 125%;
-			// height: 100%;
-			// padding-bottom: 5rem;
-    height: 100%;
-    padding-top: 96px;
-			ul {
-				list-style-type: none;
-				height: 100%;
-				margin: 0;
-				padding: 0;
-
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				li {
-					margin: 2rem 3rem;
-					// padding-inline: 4rem;
-					font-size: 1.5em;
-
-					transition: transform 450ms ease;
-					transform: translateX(-100%);
-
-					a {
-						color: $font-color-light;
-						font-weight: bold;
-						text-decoration: none;
-						position: relative;
-						&::after {
-							content: '';
-							position: absolute;
-							width: 100%;
-							height: 2px;
-							bottom: -3px;
-							left: 0;
-							background: $clr-accent-0;
-
-							transition: transform 150ms ease 50ms;
-
-							transform-origin: left;
-							transform: scaleX(0.1);
-						}
-						&:hover::after,
-						&:focus::after {
-							transform: scaleX(1);
-						}
-					}
-				}
-			}
-		}
-		.footer {
-			font-size: 175%;
-			// position: absolute;
-			// bottom: 0;
-			width: 100%;
-
-			transform: translateY(100px);
-			transition: transform 500ms ease;
-			ul {
-				margin: 2rem;
-				padding: 0;
-				list-style-type: none;
-				display: flex;
-				justify-content: space-around;
-				li a {
-					color: $font-color-light;
-				}
-			}
+			height: 100%;
+			padding-inline: 2rem;
+			box-sizing: border-box;
 		}
 	}
 }

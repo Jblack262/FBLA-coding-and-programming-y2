@@ -5,6 +5,7 @@ let markers = [];
 let circle;
 let autocomplete;
 let savedPlaces = [];
+let currentCity = { lat: 40.7128, lng: -74.0060 };
 const MARKER_PATH = "https://developers.google.com/maps/documentation/javascript/images/marker_green";
 const hostnameRegexp = new RegExp("^https?://.+?/");
 const countries = {
@@ -121,7 +122,8 @@ function onPlaceChanged() {
   const place = autocomplete.getPlace();
 
   if (place.geometry && place.geometry.location) {
-    map.panTo(place.geometry.location);
+    currentCity = place.geometry.location;
+    map.panTo(currentCity);
     map.setZoom(12);
     // search();
   } else {
@@ -136,46 +138,44 @@ const getActiveFilters = () => {
     return filter.name
   })
 }
+const getCurrKeyword = () => {
+  const keywordInput = document.querySelector('#keyword');
+  console.log(keywordInput.value)
+  return keywordInput.value;
+}
 // Search for hotels in the selected city, within the viewport of the map.
 function search() {
-  console.log(getActiveFilters())
-  if (getActiveFilters().length < 1) {
-    alert('must select at least one filter')
-  } else {
-    var bounds = map.getBounds();
-    var ne_bounds = bounds.getNorthEast();
-    var circle_center = bounds.getCenter();
-    var circle_radius = google.maps.geometry.spherical.computeDistanceBetween(circle_center, ne_bounds) / 1.5;
+  var bounds = map.getBounds();
+  var ne_bounds = bounds.getNorthEast();
+  var circle_center = bounds.getCenter();
+  var circle_radius = google.maps.geometry.spherical.computeDistanceBetween(circle_center, ne_bounds) / 1.5;
 
-    // const showCircle = new google.maps.Circle({
-    //   strokeColor: "#7CA0C0",
-    //   strokeOpacity: 0.8,
-    //   strokeWeight: 2,
-    //   fillColor: "#7CA0C0",
-    //   fillOpacity: 0.35,
-    //   map: map,
-    //   center: circle_center,
-    //   radius: circle_radius
-    // });
+  // const showCircle = new google.maps.Circle({
+  //   strokeColor: "#7CA0C0",
+  //   strokeOpacity: 0.8,
+  //   strokeWeight: 2,
+  //   fillColor: "#7CA0C0",
+  //   fillOpacity: 0.35,
+  //   map: map,
+  //   center: circle_center,
+  //   radius: circle_radius
+  // });
 
-    console.log(getActiveFilters())
+  var request = {
+    location: circle_center,
+    radius: circle_radius,
+    type: getActiveFilters(),
+    keyword: getCurrKeyword()
+  };
 
-    var request = {
-      location: circle_center,
-      radius: circle_radius,
-      type: getActiveFilters()
-    };
-    console.log(map.getBounds())
+  const marker = new google.maps.Marker({
+    position: new google.maps.LatLng( 95.7129123, 37.0902123),
+    animation: google.maps.Animation.DROP,
+    icon: "https://developers.google.com/maps/documentation/javascript/images/marker_greenZ.png",
+  });
 
-    const marker = new google.maps.Marker({
-      position: new google.maps.LatLng( 95.7129123, 37.0902123),
-      animation: google.maps.Animation.DROP,
-      icon: "https://developers.google.com/maps/documentation/javascript/images/marker_greenZ.png",
-    });
-
-    service = new google.maps.places.PlacesService(map);
-    service.nearbySearch(request, callback);
-  }
+  service = new google.maps.places.PlacesService(map);
+  service.nearbySearch(request, callback);
 }
 
 function callback(results, status) {
@@ -208,7 +208,8 @@ function callback(results, status) {
       addResults(results)
     }
   } else if (status == "ZERO_RESULTS") {
-    alert('no results found, try a different search')
+    // alert('no results found, try a different search')
+    showModal('No Results Found, try a different search', null, null)
   }
 }
 
@@ -238,23 +239,57 @@ const setCenter = (lat, lng) => {
   map.setZoom(19)
 }
 
-const savePlace = (placeName, place_id) => {
+const savePlace = async (placeName, place_id) => {
+  const currUser = await getCurrentUser();
+  if (!currUser) {
+    // alert('login to save places')
+    showModal('Log In to Save Place', 'Login','/login')
+    return;
+  }
   const place = {
     name: placeName,
     place_id: place_id
   }
-  
+  savedPlaces = currUser.saved;
   savedPlaces.push(place);
+  console.log(savedPlaces)
   //Removes all duplicate places from savedPlaces array
-  savedPlaces = Array.from(new Set(savedPlaces.map(a => a.place_id)))
-  .map(id => {
+  savedPlaces = Array.from(new Set(savedPlaces.map(a => a.place_id))).map(id => {
     return savedPlaces.find(a => a.place_id === id)
   })
+
+  currUser.saved = savedPlaces;
+  console.log(currUser.saved)
+
+
+  try {
+    const {_id: id} = currUser;
+    const updateUser = await axios.patch(`/api/v1/user/${id}`, currUser)
+    console.log(updateUser.status)
+  } catch (error) {console.error(error)}
   showSavedPlaces();
 }
 
-const deletePlace = (place_id) => {
-  savedPlaces = savedPlaces.filter(place => place.place_id !== place_id)
+const deletePlace = async (place_id) => {
+  const currUser = await getCurrentUser();
+  if (!currUser) {
+    // alert('login to use this function')
+    showModal('Log In to Save Place', 'Login','/login')
+    return;
+  }
+
+
+  
+  savedPlaces = currUser.saved;
+  savedPlaces = savedPlaces.filter(place => place.place_id !== place_id);
+  currUser.saved = savedPlaces;
+
+  try {
+    const {_id: id} = currUser;
+    const updateUser = await axios.patch(`/api/v1/user/${id}`, currUser)
+    console.log(updateUser.status)
+  } catch (error) {console.error(error)}
+
   showSavedPlaces();
 
   // console.log(savedPlaces.indexOf(place_id))
@@ -300,11 +335,19 @@ const addFilters = () => {
   filterContainerDOM.innerHTML = filtersHTML;
 }
 
-const showSavedPlaces = () => {
-  const savedPlacesContainerDOM = document.querySelector('.savedContainer')
+const showSavedPlaces = async () => {
+  const currUser = await getCurrentUser();
+
+  const savedPlacesContainerDOM = document.querySelector('.savedContainer');
+
+  if (!currUser) {
+    console.log('not logged in')
+    savedPlacesContainerDOM.innerHTML = '<p class="warning-text"><a href="/login">log in</a> to see saved places</p>';
+    return;
+  }
 
   // console.log(savedPlaces)
-  const savedPlacesHTML = savedPlaces.map(place => {
+  const savedPlacesHTML = currUser.saved.map(place => {
     const {name, place_id} = place;
     return `
       <div class="savedPlace">
@@ -317,6 +360,7 @@ const showSavedPlaces = () => {
 
   savedPlacesContainerDOM.innerHTML = savedPlacesHTML;
 }
+showSavedPlaces();
 
 function clearMarkers() {
   for (let i = 0; i < markers.length; i++) {

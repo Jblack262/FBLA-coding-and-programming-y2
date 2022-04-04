@@ -8,14 +8,6 @@ html {
 button {
 	cursor: pointer;
 }
-.title {
-	background-color: #2980b9;
-	color: #ecf0f1;
-	text-align: center;
-	margin: 0;
-	padding: 1rem;
-  font-size: 2.4rem;
-}
 .mapContainer {
 	display: flex;
   max-width: 1250px;
@@ -38,6 +30,7 @@ button {
   * {
     max-width: 640px;
     width: 100%;
+		text-align: center;
   }
 }
 .saved h3 {
@@ -62,14 +55,20 @@ button {
 	margin: auto 0;
 }
 .savedPlace .close-btn {
+	width: 48px;
+	font-size: 1.5rem;
 	background: none;
 	border: none;
 	cursor: pointer;
 	color: #e74c3c;
 }
+.warning-text {
+	text-align: center;
+}
 #map {
 	margin-top: 40px;
 	width: 40rem;
+	max-width: 100%;
 	height: 25rem;
 	flex-shrink: 0;
 	margin: 0;
@@ -79,11 +78,13 @@ button {
 	display: flex;
 	flex-direction: column;
 	width: 550px;
+	max-width: 90vw;
 	margin: 1rem auto;
 }
 #controls .location_inputs {
 	display: flex;
 	justify-content: space-between;
+	flex-wrap: wrap;
 }
 
 #controls .location_inputs input,
@@ -91,6 +92,15 @@ button {
 	font-size: 1.5rem;
   padding: 0 .25rem;
   height: 100%;
+	// margin-inline: auto;
+	&#keyword {
+		margin-top: 1rem;
+		width: 100%;
+	}
+	@media screen and (max-width: 545px) {
+		margin-block: .5rem;
+		width: 100%;
+	}
 }
 
 #controls #filters {
@@ -112,6 +122,12 @@ button {
     height: 191px;
     opacity: 1;
     transform: scaleY(1);
+		@media screen and (max-width: 768px) {
+		height: 293.5px;
+		}
+		@media screen and (max-width: 444px) {
+			height: 603px;
+		}
   }
 }
 
@@ -123,6 +139,12 @@ button {
   label {
     width: 100%;
   }
+	@media screen and (max-width: 768px) {
+		width: 48%;
+	}
+	@media screen and (max-width: 444px) {
+		width: 98%;
+	}
 	/* margin: 0.5rem; */
 }
 
@@ -153,20 +175,6 @@ button {
   }
 }
 
-.results {
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-	width: max-content;
-}
-.place {
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-	gap: 1rem;
-	padding: 0 0.5rem;
-	cursor: pointer;
-}
 .place:hover {
 	background-color: rgba(0, 0, 0, 0.2);
 }
@@ -183,15 +191,51 @@ button {
 
 .results-container {
 	min-height: 200px;
+	max-width: 100vw;
 	background-color: #ecf0f1;
 	display: flex;
 	flex-direction: column;
+	flex-wrap: wrap;
+	.results {
+		width: 100%;
+		display: flex;
+		justify-content:space-around;
+		flex-wrap: wrap;
+		// flex-direction: column;
+		// gap: 2rem;
+		// width: max-content;
+		
+		@media screen and (max-width: 1024px) {
+			// width: 100%;
+		}
+		.place {
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			width: calc(50% - 2rem);
+			padding-inline: 1rem;
+			gap: 1rem;
+			// padding: 0 0.5rem;
+			cursor: pointer;
+			@media screen and (max-width: 1024px) {
+				width: 80%;
+				justify-content:center;
+			}
+		}
+	}
 }
 
-.results-container > button {
-	padding: 0.5rem 3rem;
-	margin: 1rem;
-	margin-left: auto;
+.results-container .clear-buttons {
+	display: flex;
+	width: 550px;
+	max-width: 100%;
+	margin-inline: auto;
+	justify-content: center;
+	button {
+		padding: 0.5rem 3rem;
+		margin: 1rem;
+		// margin-left: auto;
+	}
 }
 footer {
 	margin: 0;
@@ -210,6 +254,7 @@ footer p {
   }
   #map {
     margin-inline: auto;
+		margin-top: 2rem;
   }
   .saved {
     min-height: 150px;

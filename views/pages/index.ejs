@@ -2,13 +2,21 @@
 <html>
   <head>
     <%- include('../partials/head'); %>
+    <!-- axios -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+      integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>  
+    <script src="../scripts/loginCheck.js"></script>
     <script src="../scripts/index.js"></script>
 
     <title>Vacation Search</title>
   </head>
   <body>
     <%- include('../partials/navbar'); %>
-    <h1 class="title">Vacation Search</h1>
+    
     <div class="vacation-search">
 
 
@@ -26,18 +34,12 @@
     <%- include('../partials/footer'); %>
 
     
+    <%- include('../partials/login-modal'); %>
 
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxcyoRtVkI3MZcz3zqgvsHHly6n8I3FrE&callback=initMap&libraries=geometry,places&v=weekly"
       async
-    ></script>
-    <!-- axios -->
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
-      integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
     ></script>
   </body>
 </html>
