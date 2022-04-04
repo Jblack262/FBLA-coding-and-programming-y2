@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+  <div class="forms-container">
+    <form action="/api/v1/user" method="post" id="signUpForm">
+      <h1>Sign Up</h1>
+      <div class="inputs">
+        <input type="text" name="name" id="name" autocomplete="on" placeholder="Name">
+        <input type="text" name="username" id="username" autocomplete="on" placeholder="Username">
+        <input type="password" name="password" id="password" autocomplete="on" placeholder="Password">
+      </div>
+  
+      <button type="submit" class="signIn">Sign Up</button>
+      <button type="button" class="loginOption"><a href="/login">Have an Account</a></button>
+  
+      <p class="form-error">There Has Been an Error</p>
+    </form>
+  </div>
+</body>
+</html>

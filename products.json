@@ -1,0 +1,50 @@
+[
+  {
+    "image":"https://www.pngall.com/wp-content/uploads/4/Headphone-Transparent-File.png",
+    "name": "Sennhiser Headphones",
+    "price": 149.99,
+    "rating": 5
+  },
+  {
+    "image":"https://purepng.com/public/uploads/large/purepng.com-2cd43b-1f2f8a8fe0444c828f27d6241c173477-mv2musicheadphoneearphoneslisteningearssounds-231519334370fe7mk.png",
+    "name": "Trash Headphones",
+    "price": 999.99,
+    "rating": 1
+  },
+  {
+    "image":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-blue-select-2020?wid=940&hei=1112&fmt=png-alpha&.v=1604343704000",
+    "name": "iPhone 12 Pro Max",
+    "price": 999.99,
+    "rating": 1
+  },
+  {
+    "image":"https://cdn.tmobile.com/content/dam/t-mobile/en-p/cell-phones/Google/Google-Pixel-6/Sorta-Seafoam/Google-Pixel-6-Sorta-Seafoam-frontimage.png",
+    "name": "Cool Phone",
+    "price": 899.99,
+    "rating": 4.5
+  },
+  {
+    "image":"https://dlcdnwebimgs.asus.com/gain/A1433BAB-3BC8-40BF-965C-B3E95E59BC61/w1000/h732",
+    "name": "Zephyrus g14 2022",
+    "price": 1499.99,
+    "rating": 5
+  },
+  {
+    "image":"https://upload.wikimedia.org/wikipedia/commons/f/fe/Microsoft_Surface_Pro_%282017%29.png",
+    "name": "Surface Pro",
+    "price": 799.99,
+    "rating": 3.5
+  },
+  {
+    "image":"https://www.techpowerup.com/review/massdrop-x-sennheiser-hd-6xx-headphones/images/small.png",
+    "name": "Sennhiser HD 6XX",
+    "price": 199.99,
+    "rating": 5
+  },
+  {
+    "image":"https://resource.logitechg.com/content/dam/gaming/en/products/g915-tkl/g915-tkl-gallery-1-white.png",
+    "name": "G915 TKL White",
+    "price": 249.99,
+    "rating": 4
+  }
+]

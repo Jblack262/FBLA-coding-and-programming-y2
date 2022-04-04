@@ -8,7 +8,6 @@
   </head>
   <body>
     <%- include('../partials/navbar'); %>
-    
     <h1 class="title">Vacation Search</h1>
     <div class="vacation-search">
 
@@ -30,7 +29,7 @@
 
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxcyoRtVkI3MZcz3zqgvsHHly6n8I3FrE&callback=initMap&libraries=places&v=weekly"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxcyoRtVkI3MZcz3zqgvsHHly6n8I3FrE&callback=initMap&libraries=geometry,places&v=weekly"
       async
     ></script>
     <!-- axios -->

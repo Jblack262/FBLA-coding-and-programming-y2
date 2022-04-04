@@ -2,11 +2,10 @@ let map;
 let places;
 let infoWindow;
 let markers = [];
+let circle;
 let autocomplete;
 let savedPlaces = [];
-const countryRestrict = { country: "us" };
-const MARKER_PATH =
-  "https://developers.google.com/maps/documentation/javascript/images/marker_green";
+const MARKER_PATH = "https://developers.google.com/maps/documentation/javascript/images/marker_green";
 const hostnameRegexp = new RegExp("^https?://.+?/");
 const countries = {
   au: {
@@ -65,9 +64,9 @@ const countries = {
 const searchBtnDOM = document.querySelector('.search');
 const filterTypes = [
   {name: "lodging", isFeatured: true},
-  {name: "campground", isFeatured: true},
+  {name: "campground", isFeatured: false},
 
-  {name: "tourist_attraction", isFeatured: true},
+  {name: "tourist_attraction", isFeatured: false},
   {name: "amusement_park", isFeatured: false},
   {name: "aquarium", isFeatured: false},
   {name: "zoo", isFeatured: false},
@@ -105,7 +104,6 @@ function initMap() {
     document.getElementById("autocomplete"),
     {
       types: ["(cities)"],
-      componentRestrictions: countryRestrict,
       fields: ["geometry"],
     }
   );
@@ -133,7 +131,9 @@ function onPlaceChanged() {
 
 const getActiveFilters = () => {
   return filterTypes.filter(filter => {
-    return document.getElementById(filter).checked
+    return document.getElementById(filter.name).checked
+  }).map(filter => {
+    return filter.name
   })
 }
 // Search for hotels in the selected city, within the viewport of the map.
@@ -142,39 +142,73 @@ function search() {
   if (getActiveFilters().length < 1) {
     alert('must select at least one filter')
   } else {
-    const search = {
-      bounds: map.getBounds(),
-      types: getActiveFilters(),
+    var bounds = map.getBounds();
+    var ne_bounds = bounds.getNorthEast();
+    var circle_center = bounds.getCenter();
+    var circle_radius = google.maps.geometry.spherical.computeDistanceBetween(circle_center, ne_bounds) / 1.5;
+
+    // const showCircle = new google.maps.Circle({
+    //   strokeColor: "#7CA0C0",
+    //   strokeOpacity: 0.8,
+    //   strokeWeight: 2,
+    //   fillColor: "#7CA0C0",
+    //   fillOpacity: 0.35,
+    //   map: map,
+    //   center: circle_center,
+    //   radius: circle_radius
+    // });
+
+    console.log(getActiveFilters())
+
+    var request = {
+      location: circle_center,
+      radius: circle_radius,
+      type: getActiveFilters()
     };
+    console.log(map.getBounds())
 
-    places.nearbySearch(search, (results, status, pagination) => {
-      if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-        clearResults();
-        clearMarkers();
-
-        // Create a marker for each hotel found, and
-        // assign a letter of the alphabetic to each marker icon.
-        for (let i = 0; i < results.length; i++) {
-          const markerLetter = String.fromCharCode("A".charCodeAt(0) + (i % 26));
-          const markerIcon = MARKER_PATH + markerLetter + ".png";
-
-          // Use marker animation to drop the icons incrementally on the map.
-          markers[i] = new google.maps.Marker({
-            position: results[i].geometry.location,
-            animation: google.maps.Animation.DROP,
-            icon: markerIcon,
-          });
-          // If the user clicks a hotel marker, show the details of that hotel
-          // in an info window.
-          markers[i].placeResult = results[i];
-          // google.maps.event.addListener(markers[i], "click", showInfoWindow);
-          setTimeout(dropMarker(i), i * 100);
-          // addResult(results[i], i);
-          // console.log(results)
-          addResults(results)
-        }
-      }
+    const marker = new google.maps.Marker({
+      position: new google.maps.LatLng( 95.7129123, 37.0902123),
+      animation: google.maps.Animation.DROP,
+      icon: "https://developers.google.com/maps/documentation/javascript/images/marker_greenZ.png",
     });
+
+    service = new google.maps.places.PlacesService(map);
+    service.nearbySearch(request, callback);
+  }
+}
+
+function callback(results, status) {
+  console.log('why isnt this working')
+  console.log(status)
+  if (status == google.maps.places.PlacesServiceStatus.OK) {
+    clearResults();
+    clearMarkers();
+    console.log(results)
+
+    // Create a marker for each hotel found, and
+    // assign a letter of the alphabetic to each marker icon.
+    for (let i = 0; i < results.length; i++) {
+      const markerLetter = String.fromCharCode("A".charCodeAt(0) + (i % 26));
+      const markerIcon = MARKER_PATH + markerLetter + ".png";
+
+      // Use marker animation to drop the icons incrementally on the map.
+      markers[i] = new google.maps.Marker({
+        position: results[i].geometry.location,
+        animation: google.maps.Animation.DROP,
+        icon: markerIcon,
+      });
+      // If the user clicks a hotel marker, show the details of that hotel
+      // in an info window.
+      markers[i].placeResult = results[i];
+      // google.maps.event.addListener(markers[i], "click", showInfoWindow);
+      setTimeout(dropMarker(i), i * 100);
+      // addResult(results[i], i);
+      // console.log(results)
+      addResults(results)
+    }
+  } else if (status == "ZERO_RESULTS") {
+    alert('no results found, try a different search')
   }
 }
 
@@ -255,11 +289,11 @@ const addFilters = () => {
   const filterContainerDOM = document.getElementById('filters');
   const filtersHTML = filterTypes.map(filter => {
     const {name: filterName, isFeatured} = filter;
-    console.log(filterName, isFeatured)
+    // console.log(filterName, isFeatured)
     return `
     <div class='filter'>
+      <input type="radio" ${isFeatured ? 'checked' : ''} name="filter" id="${filterName}">
       <label for="${filterName}">${filterName.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</label>
-      <input type="checkbox" ${isFeatured ? 'checked' : ''} name="${filterName}" id="${filterName}">
     </div>
     `
   }).join('')

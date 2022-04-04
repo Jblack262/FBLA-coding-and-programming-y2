@@ -702,7 +702,7 @@ nav .navContainer.closed {
 
 nav .navContainer .closeButton {
   position: absolute;
-  background-color: #d51e27;
+  background-color: #287fb8;
   display: -ms-grid;
   display: grid;
   place-items: center;
@@ -736,6 +736,8 @@ nav .navContainer .image-container .logo {
 
 nav .navContainer .links {
   font-size: 125%;
+  height: 100%;
+  padding-top: 96px;
 }
 
 nav .navContainer .links ul {
@@ -780,7 +782,7 @@ nav .navContainer .links ul li a::after {
   height: 2px;
   bottom: -3px;
   left: 0;
-  background: #d51e27;
+  background: #287fb8;
   -webkit-transition: -webkit-transform 150ms ease 50ms;
   transition: -webkit-transform 150ms ease 50ms;
   transition: transform 150ms ease 50ms;
@@ -846,10 +848,24 @@ button {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  background-color: #ecf0f1;
-  padding: 1rem 0;
+  max-width: 1250px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background-color: #bdc3c7;
+  padding: 0;
+  margin: 0 auto;
+  margin-top: 2rem;
+  border-block: 1px solid #2c3e50;
+}
+
+@media screen and (max-width: 1024px) {
+  .mapContainer {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
 }
 
 .saved {
@@ -860,12 +876,23 @@ button {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   width: 100%;
-  max-width: 400px;
+  margin: 0 1rem;
+}
+
+.saved * {
+  max-width: 640px;
+  width: 100%;
 }
 
 .saved h3 {
   margin: 0;
+  font-size: 1.5rem;
+  text-align: center;
+  border-bottom: 1px solid black;
 }
 
 .savedPlace {
@@ -926,10 +953,9 @@ button {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 1rem;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 #controls .location_inputs input,
@@ -989,11 +1015,38 @@ button {
 }
 
 #controls button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: .5rem;
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
-  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
+  margin: 0;
+  margin-top: 1.5rem;
+  font-size: 1.5rem;
+  border: none;
+  background-color: transparent;
+}
+
+#controls button i {
+  font-size: 1rem;
+}
+
+#controls button.search-btn {
+  font-size: 1.25rem;
+  display: block;
+  margin: 0;
   padding: 0.5rem 3rem;
+  width: 100%;
+  background-color: #27ae60;
+  color: white;
+  border-radius: .25rem;
 }
 
 .results {
@@ -1044,7 +1097,7 @@ button {
 
 .results-container {
   min-height: 200px;
-  background-color: #bdc3c7;
+  background-color: #ecf0f1;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1070,6 +1123,19 @@ footer p {
   margin: 0;
   padding: 0.5rem;
   color: #ecf0f1;
+}
+
+@media screen and (max-width: 1024px) {
+  .mapContainer {
+    gap: 1rem;
+  }
+  #map {
+    margin-inline: auto;
+  }
+  .saved {
+    min-height: 150px;
+    margin: 0;
+  }
 }
 
 #loginForm,
@@ -1114,7 +1180,7 @@ footer p {
 #signUpForm .login,
 #signUpForm .signIn {
   color: currentColor;
-  background-color: #d51e27;
+  background-color: #287fb8;
   border: none;
   width: 100%;
   padding: 0.75rem;
@@ -1130,7 +1196,7 @@ footer p {
 #signUpForm .login:focus-within,
 #signUpForm .signIn:hover,
 #signUpForm .signIn:focus-within {
-  background-color: #a8181f;
+  background-color: #1f628e;
 }
 
 #loginForm .form-error,

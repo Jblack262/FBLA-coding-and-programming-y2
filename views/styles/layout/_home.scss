@@ -18,18 +18,33 @@ button {
 }
 .mapContainer {
 	display: flex;
-	justify-content: space-around;
-	background-color: #ecf0f1;
-	padding: 1rem 0;
+  max-width: 1250px;
+	justify-content: space-between;
+	background-color: #bdc3c7;
+	padding: 0;
+  margin: 0 auto;
+  margin-top: 2rem;
+  border-block: 1px solid #2c3e50;
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+  }
 }
 .saved {
 	display: flex;
 	flex-direction: column;
+  align-items: center;
 	width: 100%;
-	max-width: 400px;
+  margin: 0 1rem;
+  * {
+    max-width: 640px;
+    width: 100%;
+  }
 }
 .saved h3 {
 	margin: 0;
+  font-size: 1.5rem;
+  text-align: center;
+  border-bottom: 1px solid black;
 }
 .savedPlace {
 	display: flex;
@@ -68,8 +83,7 @@ button {
 }
 #controls .location_inputs {
 	display: flex;
-	gap: 1rem;
-	justify-content: center;
+	justify-content: space-between;
 }
 
 #controls .location_inputs input,
@@ -113,9 +127,30 @@ button {
 }
 
 #controls button {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
 	width: max-content;
-	margin-left: auto;
-	padding: 0.5rem 3rem;
+	margin-right: auto;
+  padding: 0;
+  margin: 0;
+  margin-top: 1.5rem;
+  font-size: 1.5rem;
+  border: none;
+  background-color: transparent;
+  i {
+    font-size: 1rem;
+  }
+  &.search-btn {
+    font-size: 1.25rem;
+    display: block;
+    margin: 0;
+    padding: 0.5rem 3rem;
+    width: 100%;
+    background-color: #27ae60;
+    color: white;
+    border-radius: .25rem;
+  }
 }
 
 .results {
@@ -148,7 +183,7 @@ button {
 
 .results-container {
 	min-height: 200px;
-	background-color: #bdc3c7;
+	background-color: #ecf0f1;
 	display: flex;
 	flex-direction: column;
 }
@@ -167,4 +202,17 @@ footer p {
 	margin: 0;
 	padding: 0.5rem;
 	color: #ecf0f1;
+}
+
+@media screen and (max-width: 1024px) {
+  .mapContainer {
+    gap: 1rem;
+  }
+  #map {
+    margin-inline: auto;
+  }
+  .saved {
+    min-height: 150px;
+    margin: 0;
+  }
 }
