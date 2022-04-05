@@ -367,6 +367,12 @@ html {
           align-items: center;
 }
 
+input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
 nav {
   display: -webkit-box;
   display: -ms-flexbox;
