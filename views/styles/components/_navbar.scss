@@ -4,7 +4,7 @@ nav {
 	background-color: #2980b9;
 	color: #ecf0f1;
 	margin: 0;
-	@media screen and (max-width: 512px) {
+	@media screen and (max-width: 620px) {
 		justify-content: flex-start;
 	}
 	.title {
@@ -13,13 +13,15 @@ nav {
 		padding: 1rem;
 		font-size: 2.4rem;
 		max-width: 65vw;
-		@media screen and (max-width: 440px) {
+		@media screen and (max-width: 460px) {
 			font-size: 1.5rem;
 		}
 	}
 	position: relative;
 	.logout button {
 		padding-inline: 2rem;
+		color: black;
+		max-width: 10rem;
 	}
 	button {
 		position: absolute;

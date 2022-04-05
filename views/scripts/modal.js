@@ -1,5 +1,6 @@
 const modal = document.querySelector('.modal-container');
 const modalMessage = document.querySelector('.modal-message');
+const primaryBtnLink = document.querySelector('.primary');
 const primaryBtn = document.querySelector('.primary-btn');
 
 const showModal = (message, btnText, btnURL) => {
@@ -9,8 +10,8 @@ const showModal = (message, btnText, btnURL) => {
     primaryBtn.style.visibility = "hidden";
     primaryBtn.style.display = "none";
   } else {
-    primaryBtn.innerHTML = btnText;
-    primaryBtn.href = btnURL;
+    primaryBtnLink.innerHTML = btnText;
+    primaryBtnLink.href = btnURL;
   }
   modal.style.display = 'block';
   modal.style.visibility = 'visible';

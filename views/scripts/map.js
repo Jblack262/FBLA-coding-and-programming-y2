@@ -64,7 +64,8 @@ const countries = {
 };
 const searchBtnDOM = document.querySelector('.search');
 const filterTypes = [
-  {name: "lodging", isFeatured: true},
+  {name: "blank", isFeatured: true},
+  {name: "lodging", isFeatured: false},
   {name: "campground", isFeatured: false},
 
   {name: "tourist_attraction", isFeatured: false},
@@ -78,7 +79,6 @@ const filterTypes = [
   {name: "museum", isFeatured: false},
   {name: "shopping_mall", isFeatured: false},
   {name: "movie_theater", isFeatured: false},
-  {name: "spa", isFeatured: false},
 
   {name: "airport", isFeatured: false},
   {name: "subway_station", isFeatured: false},

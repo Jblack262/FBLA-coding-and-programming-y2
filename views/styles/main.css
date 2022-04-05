@@ -394,7 +394,7 @@ nav {
   position: relative;
 }
 
-@media screen and (max-width: 512px) {
+@media screen and (max-width: 620px) {
   nav {
     -webkit-box-pack: start;
         -ms-flex-pack: start;
@@ -410,7 +410,7 @@ nav .title {
   max-width: 65vw;
 }
 
-@media screen and (max-width: 440px) {
+@media screen and (max-width: 460px) {
   nav .title {
     font-size: 1.5rem;
   }
@@ -418,6 +418,8 @@ nav .title {
 
 nav .logout button {
   padding-inline: 2rem;
+  color: black;
+  max-width: 10rem;
 }
 
 nav button {
@@ -908,6 +910,7 @@ footer p {
           flex-direction: column;
   overflow: hidden;
   border-radius: 0.25rem;
+  color: black;
 }
 
 #loginForm .inputs input,
