@@ -86,7 +86,7 @@ const addFilters = () => {
     // console.log(filterName, isFeatured)
     return `
     <div class='filter'>
-      <input type="radio" ${isFeatured ? 'checked' : ''} name="filter" id="${filterName}">
+      <input type="radio" ${isFeatured ? 'checked' : ''} name="filter" class="filter-radio" id="${filterName}">
       <label for="${filterName}">${filterName.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</label>
     </div>
     `

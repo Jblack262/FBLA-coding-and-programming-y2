@@ -1,10 +1,11 @@
 const modal = document.querySelector('.modal-container');
 const modalMessage = document.querySelector('.modal-message');
-const primaryBtn = document.querySelector('.primary');
+const primaryBtn = document.querySelector('.primary-btn');
 
 const showModal = (message, btnText, btnURL) => {
   modalMessage.innerHTML = message;
   if (!btnText && !btnURL) {
+    console.log('test')
     primaryBtn.style.visibility = "hidden";
     primaryBtn.style.display = "none";
   } else {

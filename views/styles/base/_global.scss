@@ -17,13 +17,15 @@ html {
 	justify-content: center;
 	align-items: center;
 }
-input {
+input:not(.filter-radio) {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
 	border: 1px solid black;
+	color: inherit;
 }
 button {
 	-webkit-appearance: none;
 	border: 1px solid black;
+	color: inherit;
 }
